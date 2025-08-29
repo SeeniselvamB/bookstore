@@ -65,27 +65,6 @@ function HomePage() {
 
     return (
         <div className="home-container">
-
-            {/* Local Books */}
-            <h2>Available Books</h2>
-            <div className="book-grid">
-                {localBooks.map((book) => (
-                    <div key={book.id} className="book-card">
-                        <img src={book.cover} alt={book.title} className="book-cover" />
-                        <h3>{book.title}</h3>
-                        <p>{book.author}</p>
-                        {/* Removed View PDF button */}
-                        <button
-                            className="add-to-cart-btn"
-                            onClick={() => addToCart(book)}
-                        >
-                            Add to Cart
-                        </button>
-                    </div>
-                ))}
-            </div>
-
-            {/* Online Books */}
             <h2>Online Books</h2>
             <div className="search-bar">
                 <input
@@ -105,7 +84,6 @@ function HomePage() {
                             title: book.volumeInfo.title,
                             author: book.volumeInfo.authors?.join(", ") || "Unknown",
                             cover: book.volumeInfo.imageLinks?.thumbnail || "",
-                            // Add a placeholder PDF link or leave blank for online books
                             pdf: book.volumeInfo.previewLink || "",
                         };
                         return (
@@ -132,8 +110,29 @@ function HomePage() {
                     <p className="no-books">Try searching!</p>
                 )}
             </div>
+            <h2>Available Books</h2>
+            <div className="book-grid">
+                {localBooks.map((book) => (
+                    <div key={book.id} className="book-card">
+                        <img src={book.cover} alt={book.title} className="book-cover" />
+                        <h3>{book.title}</h3>
+                        <p>{book.author}</p>
+                        <button
+                            className="add-to-cart-btn"
+                            onClick={() => addToCart(book)}
+                        >
+                            Add to Cart
+                        </button>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
 
 export default HomePage;
+
+
+
+
+
