@@ -4,7 +4,7 @@
     background: linear-gradient(135deg, #a8edea, #fed6e3, #dceefb);
     background-size: 300% 300%;
     animation: gradientMove 15s ease infinite;
-    min-height: 85vh;
+    min-height: 100vh;
     text-align: center;
 }
 .checkout-container {
