@@ -5,7 +5,7 @@
     background: linear-gradient(135deg, #a8edea, #fed6e3, #dceefb);
     background-size: 300% 300%;
     animation: gradientMove 15s ease infinite;
-    min-height: 100vh;
+    min-height: auto;
     text-align: center;
 }
 
@@ -170,4 +170,5 @@
         width: 100px;
         height: 140px;
     }
+    
 }
