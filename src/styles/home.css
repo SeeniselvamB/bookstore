@@ -197,7 +197,7 @@
   transform: translateY(-3px) scale(1.08);
   box-shadow: 0 5px 12px rgba(231, 76, 60, 0.4);
 }
-/* Top Navbar */
+
 .top-navbar {
   display: flex;
   justify-content: space-between;
@@ -215,7 +215,7 @@
   font-weight: bold;
 }
 
-/* Cart Icon in Top Right */
+
 .cart-icon {
   position: relative;
   font-size: 1.8rem;

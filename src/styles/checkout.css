@@ -1,4 +1,12 @@
-/* === Checkout Page Styles === */
+.checkout {
+    padding: 30px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #a8edea, #fed6e3, #dceefb);
+    background-size: 300% 300%;
+    animation: gradientMove 15s ease infinite;
+    min-height: 85vh;
+    text-align: center;
+}
 .checkout-container {
     max-width: 800px;
     margin: 40px auto;
@@ -8,6 +16,9 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
     backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, #a8edea, #fed6e3, #dceefb);
+    background-size: 300% 300%;
+    animation: gradientMove 15s ease infinite;
 }
 
 .checkout-container h2 {
@@ -64,7 +75,6 @@
     color: #444;
 }
 
-/* === Confirmation Dialog === */
 .confirmation-dialog {
     margin-top: 25px;
     padding: 20px;
@@ -118,7 +128,6 @@
     transform: translateY(-2px);
 }
 
-/* Navigation buttons (Back to Home / Cart) */
 .checkout-navigation {
     display: flex;
     justify-content: center;
@@ -138,7 +147,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Back to Home (blue) */
+
 .checkout-navigation button:first-child {
     background: #3498db;
 }
@@ -148,7 +157,7 @@
     transform: scale(1.05);
 }
 
-/* Back to Cart (green) */
+
 .checkout-navigation button:last-child {
     background: #27ae60;
 }

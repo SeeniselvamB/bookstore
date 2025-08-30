@@ -10,19 +10,19 @@ function Navbar({ cartCount = 0 }) {
 
   return (
     <nav className="navbar">
-      {/* Logo */}
+      
       <NavLink to="/" className="logo" onClick={closeMenu}>
         BookStore
       </NavLink>
 
-      {/* Mobile toggle button */}
+      
       <div className="menu-toggle" onClick={toggleMenu}>
         <div className={`bar ${isOpen ? "open" : ""}`}></div>
         <div className={`bar ${isOpen ? "open" : ""}`}></div>
         <div className={`bar ${isOpen ? "open" : ""}`}></div>
       </div>
 
-      {/* Navigation links */}
+      
       <div className={`nav-links ${isOpen ? "active" : ""}`}>
         <NavLink 
           to="/" 
@@ -32,7 +32,6 @@ function Navbar({ cartCount = 0 }) {
           Home
         </NavLink>
 
-        {/* Cart with badge */}
         <NavLink 
           to="/cart" 
           onClick={closeMenu} 

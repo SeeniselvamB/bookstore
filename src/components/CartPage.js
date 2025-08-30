@@ -13,12 +13,13 @@ function CartPage() {
 
     const removeFromCart = (index) => {
         const updatedCart = [...cart];
-        updatedCart.splice(index, 1); // remove 1 item at index
+        updatedCart.splice(index, 1); 
         setCart(updatedCart);
         localStorage.setItem("cart", JSON.stringify(updatedCart));
     };
 
     return (
+        <div className="cart">
         <div className="cart-container">
             <h2>Your Cart</h2>
 
@@ -64,6 +65,7 @@ function CartPage() {
                     </button>
                 </div>
             )}
+        </div>
         </div>
     );
 }

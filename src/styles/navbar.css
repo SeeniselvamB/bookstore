@@ -19,7 +19,7 @@
   z-index: 100;
 }
 
-/* Logo */
+
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
@@ -27,7 +27,7 @@
   text-decoration: none;
 }
 
-/* Nav links */
+
 .nav-links {
   display: flex;
   gap: 20px;
@@ -40,7 +40,6 @@
   position: relative;
 }
 
-/* Cart badge */
 .cart-link {
   position: relative;
 }
@@ -56,7 +55,7 @@
   border-radius: 50%;
 }
 
-/* Toggle button (hamburger) */
+
 .menu-toggle {
   display: none;
   flex-direction: column;
@@ -72,7 +71,7 @@
   transition: 0.3s;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .nav-links {
     position: absolute;
@@ -94,7 +93,7 @@
     display: flex;
   }
 }
-/* Highlight the active nav link */
+
 .active-link {
   color: #f1c40f;   
   font-weight: bold;

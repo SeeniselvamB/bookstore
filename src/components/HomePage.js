@@ -1,48 +1,6 @@
 import React, { useState } from "react";
 import "../styles/home.css";
 
-const localBooks = [
-    {
-        id: "local-1",
-        title: "Java Notes",
-        author: "Patrick Naughton",
-        cover:
-            "https://books.google.com/books/content?id=x8BvqSRbR3cC&printsec=frontcover&img=1&zoom=1",
-        pdf: "https://www.iitk.ac.in/esc101/share/downloads/javanotes5.pdf",
-    },
-    {
-        id: "local-2",
-        title: "Think Python",
-        author: "Allen Downey",
-        cover:
-            "https://m.media-amazon.com/images/I/41Y6OqYqgLL._SX379_BO1,204,203,200_.jpg",
-        pdf: "https://greenteapress.com/thinkpython2/thinkpython2.pdf",
-    },
-    {
-        id: "local-3",
-        title: "C Programming",
-        author: "Dennis Ritchie",
-        cover:
-            "https://m.media-amazon.com/images/I/51Zymoq7UnL._SX379_BO1,204,203,200_.jpg",
-        pdf: "https://example.com/c-programming.pdf",
-    },
-    {
-        id: "local-4",
-        title: "JavaScript Guide",
-        author: "Brendan Eich",
-        cover: "https://m.media-amazon.com/images/I/51sZW87xHnL.jpg",
-        pdf: "https://example.com/javascript-guide.pdf",
-    },
-    {
-        id: "local-5",
-        title: "React Handbook",
-        author: "Dan Abramov",
-        cover:
-            "https://m.media-amazon.com/images/I/41CjvQX8kLL._SX379_BO1,204,203,200_.jpg",
-        pdf: "https://example.com/react-handbook.pdf",
-    },
-];
-
 function HomePage() {
     const [query, setQuery] = useState("");
     const [books, setBooks] = useState([]);
@@ -109,22 +67,6 @@ function HomePage() {
                 ) : (
                     <p className="no-books">Try searching!</p>
                 )}
-            </div>
-            <h2>Available Books</h2>
-            <div className="book-grid">
-                {localBooks.map((book) => (
-                    <div key={book.id} className="book-card">
-                        <img src={book.cover} alt={book.title} className="book-cover" />
-                        <h3>{book.title}</h3>
-                        <p>{book.author}</p>
-                        <button
-                            className="add-to-cart-btn"
-                            onClick={() => addToCart(book)}
-                        >
-                            Add to Cart
-                        </button>
-                    </div>
-                ))}
             </div>
         </div>
     );

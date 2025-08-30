@@ -8,10 +8,7 @@ function CheckoutPage() {
     const [confirmationList, setConfirmationList] = useState([]);
     const [showConfirm, setShowConfirm] = useState(false);
 
-    // ✅ Get cart from localStorage
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // 🔹 Fetch fallback Google Books link if PDF not available
     const fetchGoogleBookLink = async (title) => {
         try {
             const response = await fetch(
@@ -20,7 +17,7 @@ function CheckoutPage() {
             const data = await response.json();
 
             if (data.items && data.items.length > 0) {
-                return data.items[0].volumeInfo.infoLink; // ✅ Google Books link
+                return data.items[0].volumeInfo.infoLink; 
             }
             return null;
         } catch (error) {
@@ -42,7 +39,7 @@ function CheckoutPage() {
 
         setStatus("⏳ Preparing your books...");
 
-        // ✅ Process each book in cart
+        
         const confirmationData = await Promise.all(
             cart.map(async (b) => {
                 if (b.pdf) {
@@ -56,7 +53,6 @@ function CheckoutPage() {
 
         setConfirmationList(confirmationData);
 
-        // ✅ If some books don’t have PDFs → ask confirmation
         const hasUnavailable = confirmationData.some((b) => !b.pdfLink);
         if (hasUnavailable) {
             setShowConfirm(true);
@@ -74,19 +70,19 @@ function CheckoutPage() {
 
         emailjs
             .send(
-                "service_zxeryon", // 🔹 your service ID
-                "template_m5k5p8s", // 🔹 your template ID
+                "service_zxeryon", 
+                "template_m5k5p8s", 
                 {
                     to_email: email,
                     books: bookList.map((b) => b.title).join(", "),
                     download_link: downloadLinks.join("\n")
                 },
-                "3XYNWB0B3lELZA4_a" // 🔹 your public key
+                "3XYNWB0B3lELZA4_a" 
             )
             .then(
                 () => {
                     setStatus("✅ Email sent successfully! Check your inbox.");
-                    localStorage.removeItem("cart"); // clear cart
+                    localStorage.removeItem("cart"); 
                     setShowConfirm(false);
                 },
                 (err) => setStatus("❌ Error sending email: " + err.text)
@@ -103,6 +99,7 @@ function CheckoutPage() {
     };
 
     return (
+        <div className="checkout">
         <div className="checkout-container">
             <h2>Checkout</h2>
             <div className="checkout-form">
@@ -143,6 +140,7 @@ function CheckoutPage() {
                 <button onClick={() => (window.location.href = "/")}>Back to Home</button>
                 <button onClick={() => (window.location.href = "/cart")}>Back to Cart</button>
             </div>
+        </div>
         </div>
     );
 }
