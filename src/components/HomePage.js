@@ -12,11 +12,11 @@ const localBooks = [
     },
     {
         id: "local-2",
-        title: "Python Basics",
-        author: "Guido van Rossum",
+        title: "Think Python",
+        author: "Allen Downey",
         cover:
             "https://m.media-amazon.com/images/I/41Y6OqYqgLL._SX379_BO1,204,203,200_.jpg",
-        pdf: "https://example.com/python-basics.pdf",
+        pdf: "https://greenteapress.com/thinkpython2/thinkpython2.pdf",
     },
     {
         id: "local-3",
