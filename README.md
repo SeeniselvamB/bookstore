@@ -1,10 +1,10 @@
-# 📖 Folio — Digital Bookstore
+# Digital Bookstore
 
 A professional, responsive React bookstore application powered by the Google Books API. Search millions of books, build a cart, and receive download links via email — all wrapped in a refined dark-library aesthetic.
 
 ---
 
-## ✨ Features
+## Features
 
 - **Live Book Search** — Real-time search via the Google Books API with keyboard support (Enter to search)
 - **Smart Cart** — Add books with visual feedback; cart persists across sessions via `localStorage`
@@ -15,20 +15,7 @@ A professional, responsive React bookstore application powered by the Google Boo
 
 ---
 
-## 🎨 Design System
-
-| Token | Value | Usage |
-|---|---|---|
-| `--gold` | `#c9a84c` | Primary accent, CTAs |
-| `--parchment` | `#f5f0e8` | Primary text |
-| `--surface` | `#1a1714` | Card backgrounds |
-| `--ink` | `#0d0c0a` | Page background |
-| `--font-display` | Playfair Display | Headings, titles |
-| `--font-body` | Crimson Pro | Body, labels, buttons |
-
----
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js ≥ 16
@@ -63,7 +50,7 @@ Outputs an optimised production bundle to the `build/` folder.
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -77,7 +64,7 @@ Outputs an optimised production bundle to the `build/` folder.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
@@ -99,7 +86,7 @@ src/
 
 ---
 
-## ⚙️ EmailJS Configuration
+## EmailJS Configuration
 
 The checkout uses EmailJS to send book links. The credentials are pre-configured in `CheckoutPage.js`:
 
@@ -124,7 +111,7 @@ Your template should include these variables:
 
 ---
 
-## 🔄 Application Flow
+## Application Flow
 
 ```
 Home (Search)
@@ -146,7 +133,7 @@ Checkout Page
 
 ---
 
-## 📜 Available Scripts
+## Available Scripts
 
 | Script | Description |
 |---|---|
@@ -157,7 +144,7 @@ Checkout Page
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/your-feature`)
@@ -166,7 +153,3 @@ Checkout Page
 5. Open a Pull Request
 
 ---
-
-## 📄 License
-
-MIT License — see `LICENSE` for details.
