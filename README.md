@@ -1,70 +1,172 @@
-# Getting Started with Create React App
+# 📖 Folio — Digital Bookstore
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A professional, responsive React bookstore application powered by the Google Books API. Search millions of books, build a cart, and receive download links via email — all wrapped in a refined dark-library aesthetic.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ Features
 
-### `npm start`
+- **Live Book Search** — Real-time search via the Google Books API with keyboard support (Enter to search)
+- **Smart Cart** — Add books with visual feedback; cart persists across sessions via `localStorage`
+- **Email Delivery** — Checkout sends book preview/download links directly to your inbox via EmailJS
+- **PDF Availability Check** — Automatically fetches Google Books links for titles without direct PDFs, with a user-confirmation step before sending
+- **Fully Responsive** — Optimised for mobile, tablet, and desktop with a collapsible hamburger navigation
+- **Accessible UI** — ARIA labels, keyboard navigation, focus states, and semantic HTML throughout
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🎨 Design System
 
-### `npm test`
+| Token | Value | Usage |
+|---|---|---|
+| `--gold` | `#c9a84c` | Primary accent, CTAs |
+| `--parchment` | `#f5f0e8` | Primary text |
+| `--surface` | `#1a1714` | Card backgrounds |
+| `--ink` | `#0d0c0a` | Page background |
+| `--font-display` | Playfair Display | Headings, titles |
+| `--font-body` | Crimson Pro | Body, labels, buttons |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🚀 Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
+- Node.js ≥ 16
+- npm ≥ 8
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd folio-bookstore
 
-### `npm run eject`
+# Install dependencies
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Development
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Open [http://localhost:3000](http://localhost:3000) in your browser. The page hot-reloads on file changes.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Production Build
 
-## Learn More
+```bash
+npm run build
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Outputs an optimised production bundle to the `build/` folder.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🛠 Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+| Layer | Technology |
+|---|---|
+| Framework | React 18 (Create React App) |
+| Routing | React Router v6 |
+| Book Data | Google Books API (free, no key required) |
+| Email | EmailJS (`emailjs-com`) |
+| Persistence | `localStorage` |
+| Fonts | Google Fonts (Playfair Display, Crimson Pro) |
+| Styling | Plain CSS with CSS custom properties |
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📁 Project Structure
 
-### Making a Progressive Web App
+```
+src/
+├── App.js                  # Root app, routing
+├── index.js                # React entry point
+├── index.css               # Global tokens, resets, scrollbar
+├── App.css                 # Minimal overrides
+├── components/
+│   ├── Navbar.js           # Sticky navigation with mobile menu
+│   ├── HomePage.js         # Search, results grid, toast notifications
+│   ├── CartPage.js         # Cart list with remove functionality
+│   └── CheckoutPage.js     # Email delivery with PDF availability check
+└── styles/
+    ├── navbar.css
+    ├── home.css
+    ├── cart.css
+    └── checkout.css
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## ⚙️ EmailJS Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The checkout uses EmailJS to send book links. The credentials are pre-configured in `CheckoutPage.js`:
 
-### Deployment
+```js
+emailjs.send(
+  "service_zxeryon",      // Service ID
+  "template_m5k5p8s",     // Template ID
+  { to_email, books, download_link },
+  "3XYNWB0B3lELZA4_a"    // Public Key
+)
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+To use your own EmailJS account:
+1. Sign up at [emailjs.com](https://www.emailjs.com)
+2. Create an email service and template
+3. Replace the IDs and public key above
 
-### `npm run build` fails to minify
+Your template should include these variables:
+- `{{to_email}}` — recipient address
+- `{{books}}` — comma-separated book titles
+- `{{download_link}}` — newline-separated title: link pairs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 🔄 Application Flow
+
+```
+Home (Search)
+    │
+    ▼
+Add to Cart ──→ localStorage persists cart
+    │
+    ▼
+Cart Page ──→ Review, remove items
+    │
+    ▼
+Checkout Page
+    │
+    ├── Enter email
+    ├── Fetch PDF / Google Books links
+    ├── If some PDFs unavailable → Confirmation dialog
+    └── Send email via EmailJS → Clear cart
+```
+
+---
+
+## 📜 Available Scripts
+
+| Script | Description |
+|---|---|
+| `npm start` | Start development server on port 3000 |
+| `npm test` | Run tests in interactive watch mode |
+| `npm run build` | Create optimised production build |
+| `npm run eject` | Eject from Create React App (irreversible) |
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add your feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+MIT License — see `LICENSE` for details.
