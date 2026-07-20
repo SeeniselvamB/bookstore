@@ -1,4 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/home.css";
 
 function HomePage({
@@ -9,9 +10,12 @@ function HomePage({
   addedIds,
   setAddedIds,
 }) {
+  const API_KEY = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({ visible: false, title: "" });
   const toastTimer = useRef(null);
+  // const [previewBookId, setPreviewBookId] = useState(null);
 
   const showToast = (title) => {
     if (toastTimer.current) clearTimeout(toastTimer.current);
@@ -26,20 +30,29 @@ function HomePage({
     if (!searchQuery.trim()) return;
     setLoading(true);
     setSearchResults([]);
+
     try {
       const res = await fetch(
         `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
           searchQuery
-        )}&maxResults=20`
+        )}&maxResults=20&key=${API_KEY}`
       );
+
       const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error?.message || "Failed to fetch books");
+      }
+
       setSearchResults(data.items || []);
     } catch (err) {
       console.error("Search error:", err);
+      alert(err.message);
+      setSearchResults([]);
     } finally {
       setLoading(false);
     }
-  }, [searchQuery, setSearchResults]);
+  }, [searchQuery, setSearchResults, API_KEY]);
 
   // Clear results only when input is fully emptied
   const handleQueryChange = (e) => {
@@ -61,6 +74,10 @@ function HomePage({
     window.dispatchEvent(new Event("cartUpdated"));
     setAddedIds((prev) => new Set([...prev, bookData.id]));
     showToast(bookData.title);
+  };
+
+  const goToDetails = (book) => {
+    navigate("/book/" + book.id, { state: { book } });
   };
 
   const showResults = searchResults.length > 0 || loading;
@@ -125,7 +142,19 @@ function HomePage({
                 };
                 const isAdded = addedIds.has(bookData.id);
                 return (
-                  <div key={book.id} className="book-card">
+                  <div
+                    key={book.id}
+                    className="book-card"
+                    onClick={() => goToDetails(book)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        goToDetails(book);
+                      }
+                    }}
+                  >
                     <div className="book-cover-wrap">
                       {bookData.cover ? (
                         <img
@@ -142,10 +171,22 @@ function HomePage({
                       <h3>{bookData.title}</h3>
                       <p>{bookData.author}</p>
                       <button
-                        className={`add-to-cart-btn${isAdded ? " added" : ""}`}
-                        onClick={() => !isAdded && addToCart(bookData)}
+                        className="preview-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          goToDetails(book);
+                        }}
                       >
-                        {isAdded ? "✓ Added" : "Add to Cart"}
+                        View Details
+                      </button>
+                      <button
+                        className={`add-to-cart-btn${isAdded ? " added" : ""}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (!isAdded) addToCart(bookData);
+                        }}
+                      >
+                        {isAdded ? "Added" : "Add to Cart"}
                       </button>
                     </div>
                   </div>
@@ -174,6 +215,12 @@ function HomePage({
         <strong>Added to cart</strong>
         {toast.title}
       </div>
+      {/* {previewBookId && (
+        <BookPreviewModal
+          bookId={previewBookId}
+          onClose={() => setPreviewBookId(null)}
+        />
+      )} */}
     </div>
   );
 }

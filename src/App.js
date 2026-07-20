@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import HomePage from "./components/HomePage";
 import CartPage from "./components/CartPage";
 import CheckoutPage from "./components/CheckoutPage";
+import BookDetails from "./components/BookDetails";
 
 function App() {
   // Cart count — reactive via custom event
@@ -14,11 +15,17 @@ function App() {
   // Search state lifted here so it survives page navigation
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [addedIds, setAddedIds] = useState(new Set());
+  const [addedIds, setAddedIds] = useState(() => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    return new Set(cart.map(book => book.id));
+  });
 
   const refreshCartCount = useCallback(() => {
-    const count = (JSON.parse(localStorage.getItem("cart")) || []).length;
-    setCartCount(count);
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    setCartCount(cart.length);
+
+    setAddedIds(new Set(cart.map(book => book.id)));
   }, []);
 
   useEffect(() => {
@@ -45,6 +52,12 @@ function App() {
         />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route
+          path="/book/:id"
+          element={
+            <BookDetails addedIds={addedIds} setAddedIds={setAddedIds} />
+          }
+        />
       </Routes>
     </Router>
   );
