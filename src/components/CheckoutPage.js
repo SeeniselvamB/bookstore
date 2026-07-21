@@ -12,11 +12,12 @@ function CheckoutPage() {
   const [loading, setLoading] = useState(false);
 
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const API_KEY = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
 
   const fetchGoogleBookLink = async (title) => {
     try {
       const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(title)}`
+        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(title)}&key=${API_KEY}`
       );
       const data = await response.json();
       if (data.items && data.items.length > 0) {
@@ -71,11 +72,6 @@ function CheckoutPage() {
 
   const sendEmail = (bookList) => {
     setLoading(true);
-    const downloadLinks = bookList.map((b) =>
-      b.pdfLink
-        ? `${b.title}: ${b.pdfLink}`
-        : `${b.title}: ${b.googleLink || "No link available"}`
-    );
 
     emailjs
       .send(
@@ -83,8 +79,15 @@ function CheckoutPage() {
         "template_m5k5p8s",
         {
           to_email: email,
-          books: bookList.map((b) => b.title).join(", "),
-          download_link: downloadLinks.join("\n"),
+          books: bookList
+            .map((b) => `• ${b.title}`)
+            .join("\n"),
+          download_link: bookList
+            .map((b) => {
+              const link = b.pdfLink || b.googleLink || "No link available";
+              return `• ${b.title}\n${link}`;
+            })
+            .join("\n\n"),
         },
         "3XYNWB0B3lELZA4_a"
       )
@@ -106,11 +109,13 @@ function CheckoutPage() {
       );
   };
 
+
   const handleConfirmYes = () => sendEmail(confirmationList);
   const handleConfirmNo = () => {
     setShowConfirm(false);
     setStatus({ message: "Order cancelled. You can refine your cart and try again.", type: "error" });
   };
+
 
   return (
     <div className="checkout">

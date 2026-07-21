@@ -33,6 +33,7 @@ function App() {
     return () => window.removeEventListener("cartUpdated", refreshCartCount);
   }, [refreshCartCount]);
 
+
   return (
     <Router>
       <Navbar cartCount={cartCount} />

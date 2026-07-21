@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/home.css";
 
@@ -15,7 +15,16 @@ function HomePage({
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({ visible: false, title: "" });
   const toastTimer = useRef(null);
-  // const [previewBookId, setPreviewBookId] = useState(null);
+  const resultsRef = useRef(null);
+
+  useEffect(() => {
+    if (searchResults.length > 0) {
+      resultsRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [searchResults]);
 
   const showToast = (title) => {
     if (toastTimer.current) clearTimeout(toastTimer.current);
@@ -54,7 +63,6 @@ function HomePage({
     }
   }, [searchQuery, setSearchResults, API_KEY]);
 
-  // Clear results only when input is fully emptied
   const handleQueryChange = (e) => {
     const val = e.target.value;
     setSearchQuery(val);
@@ -114,7 +122,7 @@ function HomePage({
 
       {/* Results */}
       {showResults && (
-        <section className="books-section">
+        <section className="books-section" ref={resultsRef}>
           <div className="section-header">
             <h2>Results</h2>
             {searchResults.length > 0 && (
@@ -215,12 +223,6 @@ function HomePage({
         <strong>Added to cart</strong>
         {toast.title}
       </div>
-      {/* {previewBookId && (
-        <BookPreviewModal
-          bookId={previewBookId}
-          onClose={() => setPreviewBookId(null)}
-        />
-      )} */}
     </div>
   );
 }
